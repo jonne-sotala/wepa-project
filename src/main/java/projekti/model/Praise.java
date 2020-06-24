@@ -13,14 +13,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Connection extends AbstractPersistable<Long> {
+public class Praise extends AbstractPersistable<Long> {
     
-    private String status;
+    @ManyToOne
+    private Skill skill;
 
     @ManyToOne
-    private Account from;
+    private Account account;
 
-    @ManyToOne
-    private Account to;
-    
+    private Integer count;
+
+    public void praiseMore() {
+        count++;
+    }
+
 }

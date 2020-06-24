@@ -35,11 +35,14 @@ public class Account extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "account")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "toAccount")
+    @OneToMany(mappedBy = "account")
+    private List<Praise> praises;
+
+    @OneToMany(mappedBy = "to")
     private List<Connection> connectionsIn;
     // Accounts that have a connection to this account (or pending request)
 
-    @OneToMany(mappedBy = "fromAccount")
+    @OneToMany(mappedBy = "from")
     private List<Connection> connectionsOut; 
     // Accounts that this account is connected to (or trying to connect)
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="${title}"></title>
+  </head>
+  <body>
+
+    <h1>
+      <span th:text="${account.firstName}">firstname</span> <span th:text="${account.lastName}">lastname</span>
+    </h1>
+
+    <h2>Top 3 skills:</h2>
+    <ol>
+      <li th:each="skill : ${top3}">
+        <span th:text="${skill.content}">skill</span>
+        (<span th:text="${skill.praiseCount}">praises</span> praises)
+      </li>
+    </ol>
+
+    <h2>All skills: </h2>
+    <ul>
+      <li th:each="skill : ${skills}">
+        <span th:text="${skill.content}">skill</span>
+        (<span th:text="${skill.praiseCount}">praises</span> praises)
+        <form th:if="${!authorize}" th:action="@{/homepage/user/{username}/skills/{id}(username=${account.username},id=${skill.id})}" method="POST">
+          <input type="submit" value="Praise!"/>
+        </form>
+      </li>
+    </ul>
+
+    <form th:if="${authorize}" th:action="@{/homepage/user/{username}/skills/add(username=${account.username})}" method="POST">
+      <label for="skill">Add skill: </label>
+      <input type="text" id="skill" name="content"/>
+      <input type="submit" value="Add!"/>
+    </form>
+
+  </body>
+</html>
+
