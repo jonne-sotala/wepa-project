@@ -38,6 +38,9 @@ public class Account extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "account")
     private List<Praise> praises;
 
+    @OneToMany(mappedBy = "account")
+    private List<PostLike> postLikes;
+
     @OneToMany(mappedBy = "to")
     private List<Connection> connectionsIn;
     // Accounts that have a connection to this account (or pending request)

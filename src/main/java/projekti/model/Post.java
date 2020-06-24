@@ -17,16 +17,31 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post extends AbstractPersistable<Long> {
+public class Post extends AbstractPersistable<Long> 
+                  implements Comparable<Post> {
 
     @ManyToOne
     private Account account;
 
     private String content;
     private LocalDateTime time;
-    private Integer likes;
+    
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> postLikes;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+    public int compareTo(Post post) {
+        if (this.getTime().isBefore(post.getTime())) {
+            return 1;
+        }
+
+        if (this.getTime().isAfter(post.getTime())) {
+            return -1;
+        }
+
+        return 0;
+    }
     
 }
