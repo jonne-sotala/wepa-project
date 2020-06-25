@@ -20,7 +20,7 @@ public class ProfilePicture extends AbstractPersistable<Long> {
 
     private String name;
 
-    @Lob
+    // @Lob //@Lob didn't work in Heroku
     private byte[] picture;
 
     @OneToMany(mappedBy = "profilePicture")
