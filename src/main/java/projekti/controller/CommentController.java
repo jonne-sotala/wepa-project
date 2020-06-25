@@ -57,7 +57,7 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setAccount(account);
         comment.setPost(post);
-        comment.setContent(content);
+        comment.setContent(content.trim());
         comment.setTime(LocalDateTime.now());
         commentRepo.save(comment);
 

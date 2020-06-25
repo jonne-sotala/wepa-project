@@ -60,6 +60,10 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@RequestParam String content) {
+        if (content.trim().isEmpty()) {
+            return "redirect:/posts";
+        }
+
         Authentication auth = SecurityContextHolder
                                 .getContext()
                                 .getAuthentication();
@@ -67,7 +71,7 @@ public class PostController {
         Post post = new Post();
         post.setAccount(a);
         post.setTime(LocalDateTime.now());
-        post.setContent(content);
+        post.setContent(content.trim());
         postRepo.save(post);
 
         return "redirect:/posts";

@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfilePicture extends AbstractPersistable<Long> {
 
+    private String name;
+
     @Lob
     private byte[] picture;
 

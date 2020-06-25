@@ -26,9 +26,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/h2-console", "/h2-console/**").permitAll()
                 .antMatchers("/signup", "/signup/**").permitAll()
+                .antMatchers("/login", "/login/**").permitAll()
+                .antMatchers("/admin", "/admin/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated().and()
-                .formLogin().permitAll().and()
-                .logout().permitAll();
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/homepage").and()
+                .logout().permitAll()
+                .logoutSuccessUrl("/login");
     }
 
     @Autowired

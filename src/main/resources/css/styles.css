@@ -1,0 +1,19 @@
+/* header {
+  background-color: lightgreen;
+  width: 100%;
+}
+
+nav {
+  margin: 0;
+}
+
+nav li {
+  color: white;
+  display: inline-block;
+  width: 120px;
+} */
+
+h1, h2 {
+  font-size: 8px;
+  color: red;
+}

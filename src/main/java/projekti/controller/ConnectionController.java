@@ -61,7 +61,6 @@ public class ConnectionController {
 
         }
         model.addAttribute("others", others);
-        model.addAttribute("username", username);
         return "connections";
     }
 

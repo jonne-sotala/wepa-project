@@ -23,6 +23,17 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (account == null) {
             throw new UsernameNotFoundException("No such user: " + username);
         }
+
+        if (username.equals("admin")) {
+            return new org.springframework.security.core.userdetails.User(
+                    account.getUsername(),
+                    account.getPassword(),
+                    true,
+                    true,
+                    true,
+                    true,
+                    Arrays.asList(new SimpleGrantedAuthority("ADMIN")));
+        }
  
         return new org.springframework.security.core.userdetails.User(
                 account.getUsername(),

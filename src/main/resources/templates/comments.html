@@ -1,30 +1,39 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Comments</title>
-  </head>
+  <head th:replace="fragments/layout.html :: head('Comments')"></head>
   <body>
 
-    <h1>Comments</h1>
-    <table>
-      <tr>
-        <th>Full name</th>
-        <th>Time</th>
-        <th>content</th>
-      </tr>
-      <tr th:each="comment : ${comments}">
-        <td th:text="${comment.account.username}">username</td>
-        <td th:text="${#temporals.format(comment.time, 'HH:mm (dd/MM/yyyy)')}">time</td>
-        <td th:text="${comment.content}">content</td>
-      </tr>
-    </table>
+    <header th:replace="fragments/layout.html :: header"> </header>
 
-    <h1>Add a comment!</h1>
-    <form th:action="@{/posts/{id}/comment(id=${post.id})}" method="POST">
-      <input type="text" name="content"/>
-      <input type="submit" value="Comment!"/>
-    </form>
+    <main>
+
+      <h1>Post</h1>
+      <p class="post" th:text="${post.content}"></p>
+
+      <h1>Comments</h1>
+      <table>
+        <tr>
+          <th>Full name</th>
+          <th>Time</th>
+          <th>content</th>
+        </tr>
+        <tr th:each="comment : ${comments}">
+          <td>
+            <span th:text="${comment.account.firstName}">firstname</span> 
+            <span th:text="${comment.account.lastName}">lastname</span>
+          </td>
+          <td th:text="${#temporals.format(comment.time, 'HH:mm (dd/MM/yyyy)')}">time</td>
+          <td th:text="${comment.content}">content</td>
+        </tr>
+      </table>
+
+      <h1>Add a comment!</h1>
+      <form th:action="@{/posts/{id}/comment(id=${post.id})}" method="POST">
+        <input type="text" name="content" required pattern=".*\S+.*"/>
+        <input type="submit" value="Comment!"/>
+      </form>
+
+      </main>
 
   </body>
 </html>

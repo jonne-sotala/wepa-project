@@ -1,100 +1,103 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Connections</title>
-  </head>
+  <head th:replace="fragments/layout.html :: head('Connections')"></head>
   <body>
 
-    <h1>Established Connections</span></h1>
-    <table th:if="${not #lists.isEmpty(current)}">
-      <tr>
-        <th>Full name</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="connection : ${current}">
-        <td>
-          <a th:href="@{/homepage/user/{username}(username=${connection.to.username})}">
+    <header th:replace="fragments/layout.html :: header"> </header>
+
+    <main>
+
+      <h1>Established Connections</span></h1>
+      <table th:if="${not #lists.isEmpty(current)}">
+        <tr>
+          <th>Full name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="connection : ${current}">
+          <td>
+            <a th:href="@{/homepage/user/{username}(username=${connection.to.username})}">
+              <span th:text="${connection.to.firstName}">firstname</span> 
+              <span th:text="${connection.to.lastName}">lastname</span>
+            </a>
+          </td>
+          <td th:text="${connection.status}">status</td>
+          <td>
+            <form th:action="@{/connections/{id}/remove(id=${connection.id})}" method="POST">
+              <input type="submit" value="Remove!"/>
+            </form>
+          </td>
+        </tr>
+      </table>
+
+      <h1>Incoming Connections (Pending)</h1>
+      <table th:if="${not #lists.isEmpty(incoming)}">
+        <tr>
+          <th>Full name</th>
+          <th>Status</th>
+          <th>Action</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="connection : ${incoming}">
+          <td>
+            <span th:text="${connection.from.firstName}">firstname</span> 
+            <span th:text="${connection.from.lastName}">lastname</span>
+          </td>
+          <td th:text="${connection.status}">status</td>
+          <td>
+            <form th:action="@{/connections/{id}/accept(id=${connection.id})}" method="POST">
+              <input type="submit" value="Accept!"/>
+            </form>
+          </td>
+          <td>
+            <form th:action="@{/connections/{id}/cancel(id=${connection.id})}" method="POST">
+              <input type="submit" value="Reject!"/>
+            </form>
+          </td>
+        </tr>
+      </table>
+
+      <h1>Outgoing Connections (Pending)</h1>
+      <table th:if="${not #lists.isEmpty(outgoing)}">
+        <tr>
+          <th>Full name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="connection : ${outgoing}">
+          <td>
             <span th:text="${connection.to.firstName}">firstname</span> 
             <span th:text="${connection.to.lastName}">lastname</span>
-          </a>
-        </td>
-        <td th:text="${connection.status}">status</td>
-        <td>
-          <form th:action="@{/connections/{id}/remove(id=${connection.id})}" method="POST">
-            <input type="submit" value="Remove!"/>
-          </form>
-        </td>
-      </tr>
-    </table>
+          </td>
+          <td th:text="${connection.status}">status</td>
+          <td>
+            <form th:action="@{/connections/{id}/cancel(id=${connection.id})}" method="POST">
+              <input type="submit" value="Cancel"/>
+            </form>
+          </td>
+        </tr>
+      </table>
 
-    <h1>Incoming Connections (Pending)</h1>
-    <table th:if="${not #lists.isEmpty(incoming)}">
-      <tr>
-        <th>Full name</th>
-        <th>Status</th>
-        <th>Action</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="connection : ${incoming}">
-        <td>
-          <span th:text="${connection.from.firstName}">firstname</span> 
-          <span th:text="${connection.from.lastName}">lastname</span>
-        </td>
-        <td th:text="${connection.status}">status</td>
-        <td>
-          <form th:action="@{/connections/{id}/accept(id=${connection.id})}" method="POST">
-            <input type="submit" value="Accept!"/>
-          </form>
-        </td>
-        <td>
-          <form th:action="@{/connections/{id}/cancel(id=${connection.id})}" method="POST">
-            <input type="submit" value="Reject!"/>
-          </form>
-        </td>
-      </tr>
-    </table>
+      <h1 th:if="${not #lists.isEmpty(others)}">Other Users</h1>
+      <table th:if="${not #lists.isEmpty(others)}">
+        <tr>
+          <th>Full name</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="account : ${others}">
+          <td>
+            <span th:text="${account.firstName}">firstname</span>
+            <span th:text="${account.lastName}">lastname</span>
+          </td>
+          <td>
+            <form th:action="@{/connections/send/{id}(id=${account.id})}" method="POST">
+              <input type="submit" value="Send connection request!"/>
+            </form>
+          </td>
+        </tr>
+      </table>
 
-    <h1>Outgoing Connections (Pending)</h1>
-    <table th:if="${not #lists.isEmpty(outgoing)}">
-      <tr>
-        <th>Full name</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="connection : ${outgoing}">
-        <td>
-          <span th:text="${connection.to.firstName}">firstname</span> 
-          <span th:text="${connection.to.lastName}">lastname</span>
-        </td>
-        <td th:text="${connection.status}">status</td>
-        <td>
-          <form th:action="@{/connections/{id}/cancel(id=${connection.id})}" method="POST">
-            <input type="submit" value="Cancel"/>
-          </form>
-        </td>
-      </tr>
-    </table>
-
-    <h1 th:if="${not #lists.isEmpty(others)}">Other Users</h1>
-    <table th:if="${not #lists.isEmpty(others)}">
-      <tr>
-        <th>Full name</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="account : ${others}">
-        <td>
-          <span th:text="${account.firstName}">firstname</span>
-          <span th:text="${account.lastName}">lastname</span>
-        </td>
-        <td>
-          <form th:action="@{/connections/send/{id}(id=${account.id})}" method="POST">
-            <input type="submit" value="Send connection request!"/>
-          </form>
-        </td>
-      </tr>
-    </table>
+    </main>
 
   </body>
 </html>

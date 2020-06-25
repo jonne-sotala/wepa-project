@@ -1,46 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Posts</title>
-  </head>
+  <head th:replace="fragments/layout.html :: head('Comments')"></head>
   <body>
 
-    <h1>Post Timeline</h1>
-    <table>
-      <tr>
-        <th>User</th>
-        <th>Time</th>
-        <th>Post content</th>
-        <th>Likes</th>
-        <th>Comments</th>
-        <th>Action</th>
-        <th>Action</th>
-      </tr>
-      <tr th:each="post : ${posts}">
-        <td th:text="${post.account.username}">username</td>
-        <td th:text="${#temporals.format(post.time, 'HH:mm (dd/MM/yyyy)')}">time</td>
-        <td th:text="${post.content}">content</td>
-        <td th:text="${#lists.size(post.postLikes)}">likes</td>
-        <td th:text="${#lists.size(post.comments)}">likes</td>
-        <td>
-          <form th:action="@{/posts/{id}/like(id=${post.id})}" method="POST">
-            <input type="submit" value="Like!"/>
-          </form>
-        </td>
-        <td>
-          <form th:action="@{/posts/{id}(id=${post.id})}" method="GET">
-            <input type="submit" value="Go to Comments!"/>
-          </form>
-        </td>
-      </tr>
-    </table>
+    <header th:replace="fragments/layout.html :: header"> </header>
 
-    <h2>Write a new post!</h2>
-    <form th:action="@{/posts/create}" method="POST">
-      <textarea name=content>Write your post here!</textarea>
-      <input type="submit" value="Post!"/>
-    </form>
+    <main>
+
+      <h1>Posts</h1>
+      <table>
+        <tr>
+          <th>Full name</th>
+          <th>Time</th>
+          <th>Post content</th>
+          <th>Likes</th>
+          <th>Comments</th>
+          <th>Action</th>
+          <th>Action</th>
+        </tr>
+        <tr th:each="post : ${posts}">
+          <td>
+            <span th:text="${post.account.firstName}">firstname</span> 
+            <span th:text="${post.account.lastName}">lastname</span>
+          </td>
+          <td th:text="${#temporals.format(post.time, 'HH:mm (dd/MM/yyyy)')}">time</td>
+          <td th:text="${post.content}">content</td>
+          <td th:text="${#lists.size(post.postLikes)}">likes</td>
+          <td th:text="${#lists.size(post.comments)}">likes</td>
+          <td>
+            <form th:action="@{/posts/{id}/like(id=${post.id})}" method="POST">
+              <input type="submit" value="Like!"/>
+            </form>
+          </td>
+          <td>
+            <form th:action="@{/posts/{id}(id=${post.id})}" method="GET">
+              <input type="submit" value="Go to Comments!"/>
+            </form>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Write a new post!</h2>
+      <form th:action="@{/posts/create}" method="POST">
+        <textarea name=content rows="10" cols="50" placeholder="Write your post here!" required pattern=".*\S+.*"></textarea><br>
+        <input type="submit" value="Post!"/>
+      </form>
+
+    </main>
 
   </body>
 </html>

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:fragment="head(title)" >
+    <meta charset="UTF-8" />
+    <title th:text="${title}">Hello world</title>
+    <!-- <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" /> -->
+    <style>
+      html {
+        margin: 0px;
+        padding: 0px;
+        background-color: #faf9f7;
+      }
+
+      body {
+        font-family: Helvetica, sans-serif;
+        margin: 0px 0px;
+        text-align: center;
+      }
+
+      header {
+        background-color: grey;
+        width: 100%;
+        border-bottom: 1px solid black;
+      }
+
+      nav {
+        margin: 0px;
+        padding: 1px 0px;
+        text-align: left;
+      }
+
+      nav li {
+        margin: auto 20px;
+        font-size: 24px;
+        color: white;
+        display: inline-block;
+      } 
+      
+      .logout {
+        float: right;
+      }
+
+      nav li a {
+        color: inherit;
+      }
+
+      main {
+        padding: 25px;
+      }
+
+      table {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      ul, ol {
+        padding-left: 0;
+        list-style-position: inside;
+      }
+
+      main li {
+        padding-bottom: 5px;
+      }
+
+      input, select {
+        margin: 5px auto;
+      }
+
+      .signup input, select {
+        width: 180px;
+      }
+
+      th, td {
+        padding-left: 5px;
+        padding-right: 5px;
+        max-width: 300px;
+      }
+      
+      tr:first-child {
+        background-color: #DDD;
+      }
+
+      tr:nth-child(2n+3) {
+        background-color: #DDD;
+      }
+
+      img {
+        max-height: 200px;
+      }
+
+      .post {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header th:fragment="header">
+      <nav>
+        <ul>
+          <li><a th:href="@{/homepage}">Homepage</a></li>
+          <li><a th:href="@{/connections}">Connections</a></li>
+          <li><a th:href="@{/posts}">Posts</a></li>
+          <li class="logout" ><a th:href="@{/logout}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+  </body>
+</html>
+
