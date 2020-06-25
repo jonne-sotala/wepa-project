@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class ProfilePicture extends AbstractPersistable<Long> {
     private String name;
 
     // @Lob //@Lob didn't work in Heroku
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] picture;
 
     @OneToMany(mappedBy = "profilePicture")
