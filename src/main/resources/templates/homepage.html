@@ -40,10 +40,10 @@
       </form>
 
       <h2 th:if="${authorize}">What about uploading a custom profile picture?</h2>
-      <h3>(Notice: The picture has to be in PNG file format!</h3>
+      <h3 th:if="${authorize}">(Notice: The picture has to be in PNG file format!)</h3>
       <form th:if="${authorize}" th:action="@{/homepage/profilepictures}" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" />
-        <input type="submit" value="Upload!" >/
+        <input type="submit" value="Upload!" />
       </form>
 
     </main>

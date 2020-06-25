@@ -3,7 +3,6 @@ package projekti.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
@@ -20,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class ProfilePicture extends AbstractPersistable<Long> {
 
     private String name;
-
-    // @Lob //@Lob didn't work in Heroku
-    @Type(type = "org.hibernate.type.BinaryType")
+    
+    // @Lob // For local testing
+    @Type(type = "org.hibernate.type.BinaryType") // For Heroku
     private byte[] picture;
 
     @OneToMany(mappedBy = "profilePicture")
